@@ -1,6 +1,15 @@
 ---
 name: firecrawl-deep-research
-description: Run multi-source deep research with Firecrawl. Use when the user asks to research a topic, compare perspectives, produce a sourced briefing, investigate a technical or market question, or synthesize web evidence across many sources.
+description: |
+  Produce an intensive, cited analytical report: executive summary, multi-angle
+  findings, contrarian views, open questions, and full sources. Use only when the
+  user needs rigorous synthesis of a complex topic (scientific, technical, policy,
+  or market-analytical) that cannot be answered with a short search, and wants
+  a formal written report, not a recommendation list.
+
+  Do not use for product picks, top-N lists, quick lookups, or routine "find out
+  about X" tasks. If the request does not clearly need this kind of report, do
+  not use this skill.
 license: ISC
 metadata:
   author: firecrawl
@@ -15,21 +24,35 @@ inputs:
 
 # Firecrawl Deep Research
 
-Use this when the user wants a sourced research report, not raw search results.
+Use this only for report-scale research: a rigorous, cited synthesis the user
+explicitly wants delivered as a formal written report. If the request is a
+product pick, a top-N list, a quick lookup, or anything answerable with a short
+search, stop; do not use this skill, let the request be handled the standard
+way.
 
 ## Onboarding Interview
 
-Infer the topic, depth, and output format from context. If the topic is clear, proceed immediately.
+Infer the topic and output format from context. Before starting, unless already specified, always ask one short question to define the scope:
 
-Ask at most 1-3 concise questions only if blocked, such as the research topic, required depth, or a critical angle/source constraint.
+> "How long do you want this research task to run?"
+
+Map the answer to a depth tier in the Collection Plan below:
+- A few minutes → Quick
+- ~10-15 minutes → Thorough
+- Longer / no limit → Exhaustive
+
+If the topic itself is unclear, you may ask at most 1-2 additional concise
+questions (topic, or a critical angle/source constraint). Otherwise proceed once
+the runtime is set.
 
 ## Firecrawl Collection Plan
 
-Use Firecrawl search and scrape through the CLI or equivalent tool surface.
+Use Firecrawl search and scrape through the CLI or equivalent tool surface. Match
+depth to the runtime the user chose during onboarding.
 
-- Quick: search 3-5 queries and scrape 5-10 high-quality sources.
-- Thorough: search 5-10 queries from different angles and scrape 15-25 sources.
-- Exhaustive: search 10+ queries and scrape 25+ sources, including primary sources, research papers, expert views, and contrarian sources.
+- Quick (~a few minutes): search 3-5 queries and scrape 5-10 high-quality sources.
+- Thorough (~10-15 minutes): search 5-10 queries from different angles and scrape 15-25 sources.
+- Exhaustive (longer): search 10+ queries and scrape 25+ sources, including primary sources, research papers, expert views, and contrarian sources.
 
 Avoid re-scraping URLs already returned with full content from a search-with-scrape result.
 
